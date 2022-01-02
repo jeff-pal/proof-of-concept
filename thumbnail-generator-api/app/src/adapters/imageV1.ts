@@ -1,4 +1,4 @@
-import Image from './protocols/image';
+import Image from '../protocols/image';
 
 export default class ImageV1 implements Image {
     resize(file: Buffer): Buffer | Error {

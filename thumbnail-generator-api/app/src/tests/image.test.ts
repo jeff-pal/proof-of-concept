@@ -1,4 +1,4 @@
-import Image from './imageV1';
+import Image from '../adapters/imageV1';
 
 describe('Image Tests', () => {
     test("Should return a Buffer", () => {
