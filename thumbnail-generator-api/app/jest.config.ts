@@ -10,7 +10,9 @@ export default {
     "<rootDir>/src/**/*.ts",
     "<rootDir>/src/**/*.js",
   ],
-
+  coveragePathIgnorePatterns: [
+    "<rootDir>/src/protocols"
+  ],
   // The directory where Jest should output its coverage files
   coverageDirectory: "coverage",
 
