@@ -1,4 +1,4 @@
-import Storage from './protocols/storage';
+import Storage from '../protocols/storage';
 
 export default class StorageS3 implements Storage{
     store(file: Buffer): String | Error {

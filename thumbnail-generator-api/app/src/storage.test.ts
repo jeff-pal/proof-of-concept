@@ -1,4 +1,4 @@
-import Storage from './awsS3';
+import Storage from './adapters/awsS3';
 
 describe('Storage Tests', () => {
     test('Should return a string', () => {
