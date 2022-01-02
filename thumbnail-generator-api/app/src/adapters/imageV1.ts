@@ -2,6 +2,12 @@ import Image from '../protocols/image';
 import imageTypes from '../types/imageTypes';
 
 export default class ImageV1 implements Image {
+    private resizer: Function;
+
+    constructor(resizer: Function) {
+        this.resizer = resizer;
+    }
+
     resize(file: Buffer, size: imageTypes.Resolution): Buffer | Error {
         if(!(file instanceof Buffer)) {
             return new Error('Invalid file format. The file is not a Buffer.');
@@ -13,6 +19,7 @@ export default class ImageV1 implements Image {
             return new Error('Invalid image resolution.');
         }
 
-        return file;
+        const resizedImage = this.resizer(file, size);
+        return resizedImage;
     }
 }
