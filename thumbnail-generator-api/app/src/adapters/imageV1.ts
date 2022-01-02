@@ -2,7 +2,7 @@ import Image from '../protocols/image';
 import imageTypes from '../types/imageTypes';
 
 export default class ImageV1 implements Image {
-    private resizer: Function;
+    private readonly resizer: Function;
 
     constructor(resizer: Function) {
         this.resizer = resizer;
