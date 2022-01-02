@@ -19,7 +19,8 @@
   "scripts": {
     "start": "npm i && npm run build && node build/app",
     "dev": "ts-node app",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest"
   },
   "engines": {
     "node": ">=14.18.1"
