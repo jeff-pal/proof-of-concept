@@ -1,3 +1,5 @@
+import imageTypes from '../types/imageTypes';
+
 export default interface Image {
-    resize(file: Buffer): Buffer | Error;
+    resize(file: Buffer, size: imageTypes.Resolution): Buffer | Error;
 }
