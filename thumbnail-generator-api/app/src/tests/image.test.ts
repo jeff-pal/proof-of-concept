@@ -10,7 +10,7 @@ function makeSystemUnderTest() {
     return new Image();
 }
 
-describe('Image Tests', () => {
+describe('Test Image', () => {
     const size: types.Resolution = { width: 100, height: 100 }
 
     test("Should return a Buffer", async () => {

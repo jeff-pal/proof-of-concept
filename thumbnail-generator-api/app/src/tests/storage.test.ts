@@ -29,7 +29,7 @@ function makeSystemUnderTest() {
     return new S3();
 }
 
-describe('Storage Tests', () => {
+describe('Test Storage', () => {
     test('Should return a string', async () => {
         const systemUnderTest = makeSystemUnderTest();
         const buffer = Buffer.from('test')
