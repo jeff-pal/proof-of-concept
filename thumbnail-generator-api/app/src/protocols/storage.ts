@@ -1,3 +1,5 @@
+import types from '../types';
+
 export default interface Storage {
-    store(file: Buffer): String | Error;
+    upload(file: types.File): Promise<String | Error>;
 }

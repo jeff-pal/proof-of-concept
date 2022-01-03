@@ -1,14 +1,38 @@
+import AWS_SDK from 'aws-sdk';
 import Storage from '../protocols/storage';
+import types from '../types';
 
 export default class StorageS3 implements Storage{
-    store(file: Buffer): String | Error {
-        if(!(file instanceof Buffer)) {
+    private readonly s3: AWS_SDK.S3;
+    private readonly env;
+
+    constructor(env) {
+        this.env = env;
+        AWS_SDK.config.update({
+            credentials: env.credentials,
+            region: env.region,
+        })
+        this.s3 = new AWS_SDK.S3();
+    }
+
+    async upload(file: types.File): Promise<String | Error> {
+        if(!(file.buffer instanceof Buffer)) {
             return new Error('Invalid file format. The file is not a Buffer.');
         }
-        if(file.length <= 0) {
+        if(file.buffer.length <= 0) {
             return new Error('The file buffer is empty');
         }
 
-        return 'link';
+        const params = {
+            Bucket: this.env.bucket,
+            Key: file.name,
+            Body: file.buffer,
+            ContentType: file.contentType,
+            ACL: this.env.acl,
+        };
+        
+        const response = await this.s3.upload(params).promise();
+        return response.Location;
     }
+
 }

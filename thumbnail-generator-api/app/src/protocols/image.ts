@@ -1,5 +1,5 @@
-import imageTypes from '../types/imageTypes';
+import types from '../types';
 
 export default interface Image {
-    resize(file: Buffer, size: imageTypes.Resolution): Buffer | Error;
+    resize(file: Buffer, size: types.Resolution): Promise<Buffer | Error>;
 }

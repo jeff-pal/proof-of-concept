@@ -1,14 +1,9 @@
-import Image from '../protocols/image';
-import imageTypes from '../types/imageTypes';
+import Image     from '../protocols/image';
+import types     from '../types';
+import resizeImg from 'resize-image-buffer';
 
-export default class ImageV1 implements Image {
-    private readonly resizer: Function;
-
-    constructor(resizer: Function) {
-        this.resizer = resizer;
-    }
-
-    resize(file: Buffer, size: imageTypes.Resolution): Buffer | Error {
+export default class ImageBuffer implements Image {
+    async resize(file: Buffer, size: types.Resolution): Promise<Buffer | Error> {
         if(!(file instanceof Buffer)) {
             return new Error('Invalid file format. The file is not a Buffer.');
         }
@@ -19,7 +14,7 @@ export default class ImageV1 implements Image {
             return new Error('Invalid image resolution.');
         }
 
-        const resizedImage = this.resizer(file, size);
+        const resizedImage = await resizeImg(file, size);
         return resizedImage;
     }
 }
