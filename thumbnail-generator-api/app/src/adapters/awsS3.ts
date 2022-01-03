@@ -1,7 +1,7 @@
 import AWS_SDK from 'aws-sdk';
 import Storage from '../protocols/storage';
 import types   from '../types';
-import env     from '../helpers/env';
+import env     from '../helpers/processEnv';
 
 export default class StorageS3 implements Storage{
     private readonly s3: AWS_SDK.S3;
