@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 import Env from '../protocols/env';
-import types from '../types';
 import isAwsCredentials from '../helpers/isAwsCredentials';
 
 class ProcessEnv implements Env {

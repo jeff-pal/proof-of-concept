@@ -15,7 +15,7 @@ jest.mock('aws-sdk', () => {
     };
 });
 
-jest.mock('../helpers/processEnv', () => {
+jest.mock('../adapters/processEnv', () => {
     return {
         bucket: null,
         credentials: null,

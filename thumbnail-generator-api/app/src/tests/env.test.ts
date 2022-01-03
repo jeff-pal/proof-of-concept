@@ -1,4 +1,4 @@
-import { ProcessEnv } from '../helpers/processEnv';
+import { ProcessEnv } from '../adapters/processEnv';
 import isAwsCredentials from '../helpers/isAwsCredentials';
 
 const values = {
