@@ -1,13 +1,12 @@
 import AWS_SDK from 'aws-sdk';
 import Storage from '../protocols/storage';
-import types from '../types';
+import types   from '../types';
+import env     from '../helpers/env';
 
 export default class StorageS3 implements Storage{
     private readonly s3: AWS_SDK.S3;
-    private readonly env;
 
-    constructor(env) {
-        this.env = env;
+    constructor() {
         AWS_SDK.config.update({
             credentials: env.credentials,
             region: env.region,
@@ -24,15 +23,14 @@ export default class StorageS3 implements Storage{
         }
 
         const params = {
-            Bucket: this.env.bucket,
+            Bucket: env.bucket,
             Key: file.name,
             Body: file.buffer,
             ContentType: file.contentType,
-            ACL: this.env.acl,
+            ACL: env.acl,
         };
         
         const response = await this.s3.upload(params).promise();
         return response.Location;
     }
-
 }

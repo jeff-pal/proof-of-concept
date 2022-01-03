@@ -15,15 +15,18 @@ jest.mock('aws-sdk', () => {
     };
 });
 
-//sut factory
-function makeSystemUnderTest() {
-    const envStub = {
+jest.mock('../helpers/env', () => {
+    return {
         bucket: null,
         credentials: null,
         region: null,
         acl: null,
-    }
-    return new S3(envStub);
+    };
+});
+
+//sut factory
+function makeSystemUnderTest() {
+    return new S3();
 }
 
 describe('Storage Tests', () => {
