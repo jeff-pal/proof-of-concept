@@ -1,7 +1,9 @@
 import { 
     HttpRequest,
     HttpResponse,
-} from './src/types';
+} from '../types';
+
+import WebService from '../protocols/webService';
 
 const imageSizes = [
     {width: 400, height: 300},
@@ -39,8 +41,8 @@ function getFileExtension(file: UploadedFile): String {
     return (fileExtension ? fileExtension[1] : null);
 }
 
-import Image from './src/adapters/imageV1';
-import Storage from './src/adapters/awsS3';
+import Image from './imageV1';
+import Storage from './awsS3';
 
 const storage = new Storage();
 const image = new Image();
@@ -121,7 +123,7 @@ async function handleImage(request: HttpRequest, response: HttpResponse) {
     }
 }
 
-class WebService {
+class ExpressWebService implements WebService {
     private readonly _app;
     private _port;
     
@@ -145,4 +147,4 @@ class WebService {
     }
 }
 
-export default new WebService();
+export default new ExpressWebService();

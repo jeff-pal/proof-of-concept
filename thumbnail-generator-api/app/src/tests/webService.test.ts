@@ -1,4 +1,4 @@
-import webService from '../../webService';
+import webService from '../adapters/expressWebService';
 import supertest from 'supertest';
 
 jest.mock('express-fileupload', () => {
