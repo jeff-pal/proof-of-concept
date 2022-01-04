@@ -14,7 +14,7 @@ export default class StorageS3 implements Storage{
         this.s3 = new AWS_SDK.S3();
     }
 
-    async upload(file: types.File): Promise<String | Error> {
+    async upload(file: types.File): Promise<string | Error> {
         if(!(file.buffer instanceof Buffer)) {
             return new Error('Invalid file format. The file is not a Buffer.');
         }

@@ -22,7 +22,7 @@ const allowedFileTypes = [
 
 class ResizeToThreeDimensionsController {
     getFileExtension(file: UploadedFile): string {
-        let fileExtension: RegExpMatchArray | String = file.mimetype.match(/\/([a-z]{3,})$/);
+        let fileExtension: RegExpMatchArray | string = file.mimetype.match(/\/([a-z]{3,})$/);
         return (fileExtension ? fileExtension[1] : null);
     }
 
