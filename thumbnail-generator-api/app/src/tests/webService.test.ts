@@ -35,4 +35,16 @@ describe('Test Express Web Service', () => {
         const response = await supertest(app).post("/resize-image");
         expect(typeof response.body).toBe('object')
     })
+
+    test("Should return 'started'", done => {
+        const webService = new ExpressWebService(thumbnailGeneratorRoutes);
+        const app = webService.app;
+        const server = webService.start(3000);
+        const handle = data => {
+            server.close();
+            expect(data.status).toBe('started')
+            done()
+        }
+        app.on('started', handle)
+    })
 })
