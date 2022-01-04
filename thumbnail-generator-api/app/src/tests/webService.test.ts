@@ -2,9 +2,30 @@
  * Integration test
  */
 
-import ExpressWebService from '../adapters/expressWebService';
 import supertest from 'supertest';
-import thumbnailGeneratorRoutes from '../adapters/thumbnailGeneratorRoutes';
+import ExpressWebService from '../adapters/expressWebService';
+import thumbnailGeneratorRoutes from '../adapters/thumbnailRoutes';
+
+const s3InstanceMock = {
+    upload: jest.fn(() => (
+        {
+            promise: jest.fn(() => (
+                {
+                    Location: 'url'
+                }
+            ))
+        }
+    ))
+}
+
+jest.mock('resize-image-buffer')
+
+jest.mock('aws-sdk', () => {
+    return {
+        config: { update: jest.fn() },
+        S3: jest.fn().mockReturnValue(() => s3InstanceMock)
+    };
+});
 
 jest.mock('express-fileupload', () => {
     return () => (request, response, next) => {
@@ -19,20 +40,12 @@ jest.mock('express-fileupload', () => {
     }
 })
 
-jest.mock('../adapters/awsS3', () => {
-  return jest.fn(() => ({
-      upload: () => 'link'
-  }))  
-});
-
-jest.mock('resize-image-buffer')
-
 describe('Test Express Web Service', () => {
     test('Should return resized images array', async () => {
 
         const webService = new ExpressWebService(thumbnailGeneratorRoutes);
         const app = webService.app;
-        const response = await supertest(app).post("/thumbnail-generator/resize-image");
+        const response = await supertest(app).post("/thumbnail/resize-to-three-dimensions");
         expect(typeof response.body).toBe('object')
     })
 
