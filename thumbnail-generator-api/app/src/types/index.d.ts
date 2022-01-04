@@ -15,7 +15,7 @@ export type AwsCredentials = {
 export interface HttpResponse {
     [x: string]: any;
     statusCode: number,
-    body: any,
+    body?: any,
 }
 
 export interface HttpRequest {
