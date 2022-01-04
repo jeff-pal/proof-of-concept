@@ -1,8 +1,11 @@
 import { Router } from "express";
-import resizeImageController from "./resizeImageController";
+import resizeImageController from "./thumbnailGeneratorController";
 
-const router = Router()
+const thumbnailGeneratorRouter = Router()
+const resizeImageRouter = Router()
 
-router.post('/resize-image', resizeImageController)
+resizeImageRouter.post('/resize-image', resizeImageController)
 
-export default router;
+thumbnailGeneratorRouter.use('/thumbnail-generator', resizeImageRouter)
+
+export default thumbnailGeneratorRouter;

@@ -32,7 +32,7 @@ describe('Test Express Web Service', () => {
 
         const webService = new ExpressWebService(thumbnailGeneratorRoutes);
         const app = webService.app;
-        const response = await supertest(app).post("/resize-image");
+        const response = await supertest(app).post("/thumbnail-generator/resize-image");
         expect(typeof response.body).toBe('object')
     })
 

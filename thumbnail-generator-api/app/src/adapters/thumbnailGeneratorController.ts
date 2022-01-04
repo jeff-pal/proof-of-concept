@@ -68,7 +68,7 @@ async function storeMultipleFiles(files) {
     return imageLinks;
 }
 
-async function resizeImageController(request: HttpRequest, response: HttpResponse) {
+async function thumbnailGeneratorController(request: HttpRequest, response: HttpResponse) {
     try {
         if (!request.files) {
             return response.send({
@@ -99,4 +99,4 @@ async function resizeImageController(request: HttpRequest, response: HttpRespons
     }
 }
 
-export default resizeImageController;
+export default thumbnailGeneratorController;
