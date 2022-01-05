@@ -16,9 +16,9 @@ export default class StorageS3 implements Storage{
 
     async upload(file: types.File): Promise<string | Error> {
         if(!(file.buffer instanceof Buffer)) {
-            return new Error('Invalid file format. The file is not a Buffer.');
+            return new Error('Invalid file format. The file should be a Buffer.');
         }
-        if(file.buffer.length <= 0) {
+        if(!(file.buffer.length > 0)) {
             return new Error('The file buffer is empty');
         }
 

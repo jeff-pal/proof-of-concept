@@ -1,4 +1,4 @@
-import S3 from '../adapters/awsS3';
+import awsS3 from '../adapters/awsS3';
 
 const s3InstanceMock = {
     upload: jest.fn(() => ({
@@ -26,7 +26,7 @@ jest.mock('../adapters/processEnv', () => {
 
 //sut factory
 function makeSystemUnderTest() {
-    return new S3();
+    return new awsS3();
 }
 
 describe('Test Storage', () => {
@@ -45,7 +45,21 @@ describe('Test Storage', () => {
         expect(typeof link).toBe('string');
     })
 
-    test('Should return an Error if the file buffer is empty.', async () => {
+    test("Should return an Error if the file buffer is not a Buffer instance of.", async () => {
+        const systemUnderTest = makeSystemUnderTest();
+        const file = {
+            name: 'test.png',
+            extension: 'png',
+            contentType: 'image/png',
+            buffer: null,
+        }
+        // @ts-ignore - with this command we ignore type checking for the line bellow.
+        const link = await systemUnderTest.upload(file);
+
+        expect(link).toEqual(new Error('Invalid file format. The file should be a Buffer.'));
+    })
+
+    test("Should return error: 'The file buffer is empty'.", async () => {
         const systemUnderTest = makeSystemUnderTest();
         const buffer = Buffer.alloc(0)
         const file = {
@@ -58,17 +72,5 @@ describe('Test Storage', () => {
         expect(link).toEqual(new Error('The file buffer is empty'));
     })
     
-    test("Should return an Error if the file buffer is not a Buffer instance of.", async () => {
-        const systemUnderTest = makeSystemUnderTest();
-        const file = {
-            name: 'test.png',
-            extension: 'png',
-            contentType: 'image/png',
-            buffer: null,
-        }
-        // @ts-ignore - with this command we ignore type checking for the line bellow.
-        const link = await systemUnderTest.upload(file);
-
-        expect(link).toEqual(new Error('Invalid file format. The file is not a Buffer.'));
-    })
+    
 });
