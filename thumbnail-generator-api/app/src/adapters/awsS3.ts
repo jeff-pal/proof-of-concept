@@ -21,15 +21,13 @@ export default class StorageS3 implements Storage{
         if(!(file.buffer.length > 0)) {
             return new Error('The file buffer is empty');
         }
-
         const params = {
             Bucket: env.bucket,
             Key: file.name,
             Body: file.buffer,
             ContentType: file.contentType,
             ACL: env.acl,
-        };
-        
+        };       
         const response = await this.s3.upload(params).promise();
         return response.Location;
     }

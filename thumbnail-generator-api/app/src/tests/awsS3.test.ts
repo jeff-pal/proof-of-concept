@@ -45,19 +45,19 @@ describe('Test Storage', () => {
         expect(typeof link).toBe('string');
     })
 
-    test("Should return an Error if the file buffer is not a Buffer instance of.", async () => {
-        const systemUnderTest = makeSystemUnderTest();
-        const file = {
-            name: 'test.png',
-            extension: 'png',
-            contentType: 'image/png',
-            buffer: null,
+    test("Should return an error: 'Invalid file format. The file should be a Buffer.'",
+        async () => {
+            const systemUnderTest = makeSystemUnderTest();
+            const file = {
+                name: 'test.png',
+                extension: 'png',
+                contentType: 'image/png',
+                buffer: null,
+            }
+            const link = await systemUnderTest.upload(file);
+            expect(link).toEqual(new Error('Invalid file format. The file should be a Buffer.'));
         }
-        // @ts-ignore - with this command we ignore type checking for the line bellow.
-        const link = await systemUnderTest.upload(file);
-
-        expect(link).toEqual(new Error('Invalid file format. The file should be a Buffer.'));
-    })
+    )
 
     test("Should return error: 'The file buffer is empty'.", async () => {
         const systemUnderTest = makeSystemUnderTest();
@@ -71,6 +71,4 @@ describe('Test Storage', () => {
         const link = await systemUnderTest.upload(file);
         expect(link).toEqual(new Error('The file buffer is empty'));
     })
-    
-    
 });

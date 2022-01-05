@@ -3,7 +3,7 @@ import {
         HttpRequest,
         HttpResponse 
        }                from "../types";
-import Image            from './imageV1';
+import Image            from './imageBuffer';
 import Storage          from './awsS3';
 
 const storage = new Storage();
@@ -14,20 +14,26 @@ const imageSizes = [
     { width: 160, height: 120 },
     { width: 120, height: 120 },
 ]
-const allowedFileTypes = [
+const acceptedFileTypes = [
     'jpeg',
     'png',
 ]
 
 
 class ResizeToThreeDimensionsController {
-    getFileExtension(file: UploadedFile): string {
-        let fileExtension: RegExpMatchArray | string = file.mimetype.match(/\/([a-z]{3,})$/);
-        return (fileExtension ? fileExtension[1] : null);
+    getFileExtension(mimetype: string): string | Error {
+        if(typeof mimetype !== 'string') {
+            return new Error('Invalid mimetype input. It should be a string.')
+        }
+        let fileExtension: RegExpMatchArray | string = mimetype.match(/\/([a-z]{3,})$/);
+        return (fileExtension ? fileExtension[1] : new Error("Invalid mimetype format. It should be as 'filetype/extension'."));
     }
 
-    allowedFileExtension(fileExtension: string) {
-        return allowedFileTypes.includes(fileExtension);
+    isAcceptedFileExtension(fileExtension: string) {
+        if(typeof fileExtension !== 'string') {
+            return new Error('Invalid file extension input. It should be a string.')
+        }
+        return acceptedFileTypes.includes(fileExtension.toLocaleLowerCase());
     }
 
     formatImageFileName(fileName, extension, dimension) {
@@ -69,32 +75,35 @@ class ResizeToThreeDimensionsController {
 
     async handle(request: HttpRequest, response: HttpResponse) {
         try {
+            if(!request || !response) {
+                throw new Error("Undefined request or response object");
+            }
             if (!request.files) {
-                return response.send({
-                    status: false,
-                    message: 'No file uploaded'
+                response.status(400).send({
+                    message: 'No files found'
                 });
+                return new Error('No files found');
             } else {
-                const files         = request.files;
-                const sourceFile    = files.image_to_be_resized as UploadedFile;
-                const fileExtension = this.getFileExtension(sourceFile);
-                
-                if (!this.allowedFileExtension(fileExtension)) {
-                    response.statusMessage = "File type invalid.";
-                    return response.status(400).send();
+                const files                        = request.files;
+                const sourceFile                   = files.image_to_be_resized as UploadedFile;
+                const fileExtension                = this.getFileExtension(sourceFile.mimetype);
+                const isInvalidFileExtensionFormat = fileExtension instanceof Error;
+                const isNotAcceptedFileExtension   = !this.isAcceptedFileExtension(fileExtension as string)
+
+                if (isInvalidFileExtensionFormat || isNotAcceptedFileExtension) {
+                    response.statusMessage = "File type is invalid";
+                    response.status(400).send();
+                    return new Error('File type invalid')
                 }
-        
-                const file = { ...sourceFile, extension: fileExtension }
-                
+                const file          = { ...sourceFile, extension: fileExtension }
                 const resizedImages = await this.resizeImageToMultipleSizes(imageSizes, file);
-                const imageLinks = await this.storeMultipleFiles(resizedImages);
+                const imageLinks    = await this.storeMultipleFiles(resizedImages);
     
                 return response.send(imageLinks);
                 
             }
         } catch (err) {
-            console.log(err);
-            response.status(500).send(err);
+            return new Error(err);
         }
     }
 }

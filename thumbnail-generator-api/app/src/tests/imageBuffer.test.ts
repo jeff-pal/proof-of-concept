@@ -1,4 +1,4 @@
-import Image from '../adapters/imageV1';
+import Image from '../adapters/imageBuffer';
 import types from '../types';
 
 jest.mock('resize-image-buffer', () => {

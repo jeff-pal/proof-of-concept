@@ -41,8 +41,8 @@ class ExpressWebService implements WebService {
         return this._app;
     }
 
-    start(port: number) {
-        this._port = port || 3000;
+    start(port: number = 3000) {
+        this._port = port;
 
         return this._app.listen(this._port, () => {
             console.log(`App is listening on port ${this._port}`)
