@@ -1,29 +1,18 @@
 /**
- * Integration test
+ * Declare/import here objects used inside jest mocks,
+ * to prevent jest error: Cannot access 'object' before initialization
  */
-
+import s3InstanceMock from '../mocks/s3InstanceMock';
 import supertest from 'supertest';
 import ExpressWebService from '../adapters/expressWebService';
 import thumbnailGeneratorRoutes from '../adapters/thumbnailRoutes';
-
-const s3InstanceMock = {
-    upload: jest.fn(() => (
-        {
-            promise: jest.fn(() => (
-                {
-                    Location: 'url'
-                }
-            ))
-        }
-    ))
-}
 
 jest.mock('resize-image-buffer')
 
 jest.mock('aws-sdk', () => {
     return {
         config: { update: jest.fn() },
-        S3: jest.fn().mockReturnValue(() => s3InstanceMock)
+        S3: jest.fn().mockReturnValue(s3InstanceMock)
     };
 });
 
