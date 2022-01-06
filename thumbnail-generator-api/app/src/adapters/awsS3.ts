@@ -7,10 +7,12 @@ export default class StorageS3 implements Storage{
     private readonly s3: AWS_SDK.S3;
 
     constructor() {
-        AWS_SDK.config.update({
-            credentials: env.credentials,
-            region: env.region,
-        })
+        if(!env.get('RUNNING_ON_LAMBDA')) {
+            AWS_SDK.config.update({
+                credentials: env.credentials,
+                region: env.region,
+            })
+        }
         this.s3 = new AWS_SDK.S3();
     }
 

@@ -8,16 +8,25 @@ class ProcessEnv implements Env {
     private readonly _credentials;
     private readonly _acl;
     private readonly _region;
+    private readonly env;
 
     constructor(env?) {
-        env = env || process.env;
-        this._bucket = env.BUCKET;
-        this._acl = env.ACL;
-        this._region = env.REGION;
+        this.env = env || process.env;
+        this._bucket      = this.env.BUCKET;
+        this._acl         = this.env.ACL;
+        this._region      = this.env.REGION;
         this._credentials = {
-            accessKeyId: env.AWS_ACCESS_KEY_ID,
-            secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+            accessKeyId: this.env.AWS_ACCESS_KEY_ID,
+            secretAccessKey: this.env.AWS_SECRET_ACCESS_KEY,
         };
+    }
+
+    get(key) {
+        return this.env[key];
+    }
+
+    set(key, value) {
+        this.env[key] = value;
     }
 
     get bucket() {
