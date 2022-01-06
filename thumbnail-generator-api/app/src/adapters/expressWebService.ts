@@ -1,3 +1,5 @@
+import awsServerlessExpressMiddleware 
+                   from 'aws-serverless-express/middleware'
 import bodyParser  from 'body-parser';
 import cors        from 'cors';
 import express,
@@ -31,6 +33,7 @@ class ExpressWebService implements WebService {
     
     constructor(router: Router) {
         this._app = express();
+        this._app.use(awsServerlessExpressMiddleware.eventContext())
         this._app.use(fileUpload(options));
         this._app.use(cors());
         this._app.use(bodyParser.json());
