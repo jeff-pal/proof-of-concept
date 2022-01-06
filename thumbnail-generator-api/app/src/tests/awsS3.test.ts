@@ -21,6 +21,7 @@ jest.mock('../adapters/processEnv', () => {
         credentials: null,
         region: null,
         acl: null,
+        get: () => null
     };
 });
 

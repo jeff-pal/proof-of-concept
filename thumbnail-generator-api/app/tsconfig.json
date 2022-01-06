@@ -7,7 +7,7 @@
     "outDir": "./build",
     "esModuleInterop": true
   },
-  "include": ["app.ts", "src"],
+  "include": ["app.ts", "src", "handlers"],
   "exclude": [
     "**/*.spec.?s",
     "**/*.test.?s"

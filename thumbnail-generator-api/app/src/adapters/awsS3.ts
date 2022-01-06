@@ -1,13 +1,13 @@
-import AWS_SDK from 'aws-sdk';
-import Storage from '../protocols/storage';
-import types   from '../types';
-import env     from './processEnv';
+import AWS_SDK  from 'aws-sdk';
+import Storage  from '../protocols/storage';
+import env      from './processEnv';
+import { File } from 'aws-lambda-resize-img';
 
 export default class StorageS3 implements Storage{
     private readonly s3: AWS_SDK.S3;
 
     constructor() {
-        if(!env.get('RUNNING_ON_LAMBDA')) {
+        if(!env.get('IS_LAMBDA')) {
             AWS_SDK.config.update({
                 credentials: env.credentials,
                 region: env.region,
@@ -16,7 +16,7 @@ export default class StorageS3 implements Storage{
         this.s3 = new AWS_SDK.S3();
     }
 
-    async upload(file: types.File): Promise<string | Error> {
+    async upload(file: File): Promise<string | Error> {
         if(!(file.buffer instanceof Buffer)) {
             return new Error('Invalid file format. The file should be a Buffer.');
         }

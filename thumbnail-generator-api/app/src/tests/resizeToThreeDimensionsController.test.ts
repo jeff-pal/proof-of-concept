@@ -13,7 +13,8 @@ const request = {
             mimetype: 'image/png',
             data: Buffer.from('test')
         }
-    }
+    },
+    apiGateway: {}
 }
 
 const response = { 
@@ -23,7 +24,7 @@ const response = {
     status: () => ({ send: (data: {}) => data})
 }
 
-jest.mock('resize-image-buffer', () => {
+jest.mock('aws-lambda-resize-img', () => {
     return () => Buffer.from('test')
 })
 

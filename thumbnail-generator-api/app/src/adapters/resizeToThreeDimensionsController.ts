@@ -6,9 +6,6 @@ import {
 import Image            from './imageBuffer';
 import Storage          from './awsS3';
 
-const storage = new Storage();
-const image = new Image();
-
 const imageSizes = [
     { width: 400, height: 300 },
     { width: 160, height: 120 },
@@ -41,10 +38,14 @@ class ResizeToThreeDimensionsController {
     }
     
     async resizeImageToMultipleSizes(imageDimensions, sourceFile) {
+        const image       = new Image();
         let resizedImages = [];
         for(const imageDimension of imageDimensions) {
-            const imageBuffer =  await image.resize(sourceFile.data, imageDimension) as Buffer;
-    
+            const imageBuffer =  await image.resize(
+                sourceFile,
+                imageDimension
+            ) as Buffer;
+            
             const fileNameWithoutExtension = sourceFile?.name?.match(/(.+?)(\.[^.]*$|$)/)?.[1];
             const fileName = this.formatImageFileName(
                 fileNameWithoutExtension,
@@ -64,6 +65,7 @@ class ResizeToThreeDimensionsController {
     }
 
     async storeMultipleFiles(files) {
+        const storage    = new Storage();
         const imageLinks = [];
     
         for(const file of files) {
@@ -74,15 +76,15 @@ class ResizeToThreeDimensionsController {
     }
 
     async handle(request: HttpRequest, response: HttpResponse) {
-        try {
+        try {           
             if(!request || !response) {
                 throw new Error("Undefined request or response object");
             }
-            if (!request.files) {
+            if (!request?.files) {
                 response.status(400).send({
                     message: 'No files found'
                 });
-                return new Error('No files found');
+                throw new Error('No files found');
             } else {
                 const files                        = request.files;
                 const sourceFile                   = files.image_to_be_resized as UploadedFile;
@@ -93,7 +95,7 @@ class ResizeToThreeDimensionsController {
                 if (isInvalidFileExtensionFormat || isNotAcceptedFileExtension) {
                     response.statusMessage = "File type is invalid";
                     response.status(400).send();
-                    return new Error('File type invalid')
+                    throw new Error('File type invalid')
                 }
                 const file          = { ...sourceFile, extension: fileExtension }
                 const resizedImages = await this.resizeImageToMultipleSizes(imageSizes, file);
@@ -103,7 +105,8 @@ class ResizeToThreeDimensionsController {
                 
             }
         } catch (err) {
-            return new Error(err);
+            console.log(err);
+            return new Error(err?.message);
         }
     }
 }

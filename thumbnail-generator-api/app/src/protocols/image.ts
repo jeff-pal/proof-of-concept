@@ -1,5 +1,5 @@
-import types from '../types';
+import { File, Options} from 'aws-lambda-resize-img';
 
 export default interface Image {
-    resize(file: Buffer, size: types.Resolution): Promise<Buffer | Error>;
+    resize(file: File, size: Options): Promise<Buffer | Error>;
 }

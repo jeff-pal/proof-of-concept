@@ -8,7 +8,7 @@ resizeImageRouter.post('/resize-to-three-dimensions', resizeImageController.hand
 
 thumbnailGeneratorRouter.use('/thumbnail', resizeImageRouter)
 thumbnailGeneratorRouter.get('/', async (req, res, next) => {
-      res.status(200).send('Thumbnail app is running...')
+      return res.status(200).send('Thumbnail app is running...')
     })
 
 export default thumbnailGeneratorRouter;

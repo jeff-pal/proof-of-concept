@@ -27,4 +27,6 @@ export default {
   roots: [
     "<rootDir>/src"
   ],
+  // stop after first failing test
+  bail: true
 };

@@ -7,7 +7,7 @@ import supertest from 'supertest';
 import ExpressWebService from '../adapters/expressWebService';
 import thumbnailGeneratorRoutes from '../adapters/thumbnailRoutes';
 
-jest.mock('resize-image-buffer')
+jest.mock('aws-lambda-resize-img')
 
 jest.mock('aws-sdk', () => {
     return {
@@ -30,6 +30,14 @@ jest.mock('express-fileupload', () => {
 })
 
 describe('Test Express Web Service', () => {
+    test('Should return ...', async () => {
+        const webService = new ExpressWebService(thumbnailGeneratorRoutes);
+        const app = webService.app;
+        const response = await supertest(app).get("/");
+        expect(response.text).toBe('Thumbnail app is running...')
+    })
+
+
     test('Should return resized images array', async () => {
 
         const webService = new ExpressWebService(thumbnailGeneratorRoutes);

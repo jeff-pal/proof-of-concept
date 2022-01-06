@@ -1,19 +1,24 @@
 import Image     from '../protocols/image';
-import types     from '../types';
-import resizeImg from 'resize-image-buffer';
+import resizeImage, 
+    { 
+        File,
+        Options 
+    } from 'aws-lambda-resize-img';
 
 export default class ImageBuffer implements Image {
-    async resize(file: Buffer, size: types.Resolution): Promise<Buffer | Error> {
-        if(!(file instanceof Buffer)) {
+    async resize(file: File, dimension: Options): Promise<Buffer | Error> {
+        const buffer = file?.buffer || file?.data;
+        
+        if(!(buffer instanceof Buffer)) {
             return new Error('Invalid file format. The file is not a Buffer.');
         }
-        if(!(file.length > 0)) {
+        if(!(buffer.length > 0)) {
             return new Error('The file buffer is empty');
         }
-        if(!size?.width || !size?.height) {
-            return new Error('Invalid image resolution.');
+        if(!dimension?.width || !dimension?.height) {
+            return new Error('Invalid image dimension.');
         }
-        const resizedImage = await resizeImg(file, size);
+        const resizedImage = await resizeImage(file, dimension);
         return resizedImage;
     }
 }
