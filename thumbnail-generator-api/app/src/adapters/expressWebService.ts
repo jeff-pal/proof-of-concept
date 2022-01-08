@@ -31,10 +31,10 @@ class ExpressWebService implements WebService {
     
     constructor(router: Router) {
         this._app = express();
-        this._app.use(fileUpload(options));
         this._app.use(cors());
         this._app.use(bodyParser.json());
         this._app.use(bodyParser.urlencoded({ extended: true }));
+        this._app.use(fileUpload(options));
         this._app.use('/', router);
     }
     get app() {
