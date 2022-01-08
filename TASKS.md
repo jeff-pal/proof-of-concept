@@ -86,6 +86,26 @@
 |                                                  |         |
 | TOTAL                                            | 08:45hs |
 
+## Day 8
+
+| Task                                             | Time    |
+| ------------------------------------------------ | ------- |
+| Create auth0 account and api/ui applications     | 00:30hs |
+| Create ui app                                    | 00:30hs |
+| Implement authentication in api/ui               | 03:30hs |
+|                                                  |         |
+| TOTAL                                            | 04:30hs |
+
+## Day 9
+
+| Task                                             | Time    |
+| ------------------------------------------------ | ------- |
+| Implement ui components basis                    | 02:20hs |
+| Implement load and upload file                   | 03:20hs |
+| Fix issues (cors, lambda, etc)                   | 01:50hs |
+|                                                  |         |
+| TOTAL                                            | 07:30hs |
+
 
 ## To Improve
 
