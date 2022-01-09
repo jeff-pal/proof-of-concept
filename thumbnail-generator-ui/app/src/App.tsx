@@ -1,19 +1,48 @@
 import React                from 'react';
 import axios                from 'axios';
 import { useAuth0 }         from '@auth0/auth0-react';
+import { 
+  ToastContainer,
+  toast }                   from 'react-toastify';
 import {
+  Column,
   DefaultDragAndDropContent,
   DragAndDropFile,
   LoginButton,
-  LogoutButton, }           from './components';
-
-
+  LogoutButton }            from './components';
 import { loadDataFromFile } from './utils';  
+
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_THUMBNAIL_API
 });
+
+async function handleRejectedFile(file: any) {
+  toast(file?.errors?.[0]?.message, {
+    position: "bottom-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    rtl: false,
+    pauseOnFocusLoss: true,
+    draggable: true,
+    pauseOnHover: true,
+    theme: 'dark',
+    type: 'warning',
+  })
+}
+
+async function handleAcceptedFile(file: File, binaryStr: any, setPreviewSrc: any, setFile: any) {
+  try {
+    const url: any = await loadDataFromFile(file);
+    setPreviewSrc(url);
+    setFile(file);
+  } catch (error) {
+    console.error('The file read fails.');
+  }
+}
 
 function App() {
   const { 
@@ -22,8 +51,8 @@ function App() {
     isLoading,
     getAccessTokenSilently }                        = useAuth0();
   const [ resizedThumbnails, setResizedThumbnails ] = React.useState([]);
-  const [ previewSrc, setPreviewSrc ]               = React.useState();
-  const [ file, setFile ]                           = React.useState();
+  const [ previewSrc, setPreviewSrc ]               = React.useState<string>();
+  const [ file, setFile ]                           = React.useState<File>();
     
   async function generateThumbnails(file: File) {
     if(isAuthenticated) {
@@ -53,16 +82,6 @@ function App() {
     }
   }
 
-  async function handleFile(file: any, binaryStr: any) {
-    try {
-      const url: any = await loadDataFromFile(file);
-      setPreviewSrc(url);
-      setFile(file);
-    } catch (error) {
-      console.error('The file read fails.');
-    }
-  }
-
   const Thumbnails = () => (
     <div>
       {
@@ -74,13 +93,16 @@ function App() {
   )
 
   const PrivateContent = () => (
-    <div>
+    <Column>
+      <img alt='user' src={user?.picture || 'user.png'} style={{ width: '5vh', height:'5vh', borderRadius: '50%' }}/>
+      <LogoutButton />
       <div>
         <DragAndDropFile
           multiple={false}
           accept="image/jpeg, image/jpg, image/png"
-          handleFile={handleFile}
-          dependencies={isAuthenticated}
+          handleAcceptedFiles={(file: File, binaryStr: any) => handleAcceptedFile(file, binaryStr, setPreviewSrc, setFile)}
+          handleRejectedFiles={handleRejectedFile}
+          maxSize={5242880}
         >
           <div style={{
               width: '500px',
@@ -107,34 +129,32 @@ function App() {
       {
         previewSrc &&
         file &&
-        <button onClick={() => generateThumbnails(file)}>Confirm</button>
+        <button className='button-light' onClick={() => generateThumbnails(file)}>Confirm</button>
       }
       <Thumbnails />
-    </div>
+    </Column>
   );
+
+  function PublicContent() {
+    return (
+      <div>
+        <LoginButton />
+      </div>
+    )
+  }
 
   return (
     <div className="App">
-      <header style={{
-        display: 'flex',
-        justifyContent: 'center',
-        margin:'20px'
-      }}>
+      <Column>
         {
           isLoading ? 'Loading...' : (
             isAuthenticated ?
-            <LogoutButton /> :
-            <LoginButton />
+            <PrivateContent /> :
+            <PublicContent />
           )
         }
-
-      </header>
-      <img alt='user' src={user?.picture} style={{ borderRadius: '50%' }}/>
-
-      {
-        isAuthenticated &&
-        <PrivateContent />
-      }
+      </Column>
+      <ToastContainer />
     </div>
   );
 }

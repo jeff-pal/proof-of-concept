@@ -106,6 +106,17 @@
 |                                                  |         |
 | TOTAL                                            | 07:30hs |
 
+## Day 10
+
+| Task                                             | Time    |
+| ------------------------------------------------ | ------- |
+| finish ui                                        | 00:00hs |
+| deploy ui                                        | 00:00hs |
+| docker ui/api                                    | 00:00hs |
+| docs/swagger                                     | 00:00hs |
+|                                                  |         |
+| TOTAL                                            | 07:30hs |
+
 
 ## To Improve
 
