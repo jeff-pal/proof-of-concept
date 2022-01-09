@@ -45,14 +45,12 @@ class ResizeToThreeDimensionsController {
                 sourceFile,
                 imageDimension
             ) as Buffer;
-            
             const fileNameWithoutExtension = sourceFile?.name?.match(/(.+?)(\.[^.]*$|$)/)?.[1];
             const fileName = this.formatImageFileName(
                 fileNameWithoutExtension,
                 sourceFile.extension,
                 imageDimension
                 )
-    
             const file = {
                 name: fileName,
                 extension: sourceFile.extension,
@@ -100,12 +98,14 @@ class ResizeToThreeDimensionsController {
                 const file          = { ...sourceFile, extension: fileExtension }
                 const resizedImages = await this.resizeImageToMultipleSizes(imageSizes, file);
                 const imageLinks    = await this.storeMultipleFiles(resizedImages);
-    
                 return response.send(imageLinks);
                 
             }
         } catch (err) {
             console.log(err);
+            response?.status(400)?.send({
+                message: err?.message
+            });
             return new Error(err?.message);
         }
     }

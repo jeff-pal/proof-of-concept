@@ -8,6 +8,7 @@ provider:
   stage: dev
   lambdaHashingVersion: 20201221
   region: sa-east-1
+  timeout: 20
   iam:
     role:
       statements:
