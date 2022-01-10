@@ -110,12 +110,12 @@
 
 | Task                                             | Time    |
 | ------------------------------------------------ | ------- |
-| finish ui                                        | 00:00hs |
-| deploy ui                                        | 00:00hs |
-| docker ui/api                                    | 00:00hs |
-| docs/swagger                                     | 00:00hs |
+| Improve/refactor ui/api                          | 02:00hs |
+| docker ui/api                                    | 02:30hs |
+| deploy ui/api                                    | 01:30hs |
+| setup swagger and write api docs                 | 02:30hs |
 |                                                  |         |
-| TOTAL                                            | 07:30hs |
+| TOTAL                                            | 08:30hs |
 
 
 ## To Improve

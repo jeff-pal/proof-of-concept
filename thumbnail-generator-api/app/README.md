@@ -70,17 +70,45 @@ npm run docker:up
 ```
 The application will be available on port 3000.
 
-### 2. Access Container
+### 2. Deploying (optional)
+
+#### 2.1. Access the container
 
 ```bash
 docker exec -it cont-thumbnail-gen-api sh
+
 ```
+
+#### 2.2. Setup the AWS Credentials
+
+```bash
+serverless config credentials \
+  --provider aws \
+  --key <you-key> \
+  --secret <you-secret>
+
+```
+
+#### 2.3. Run deploy
+
+```bash
+npm run sls:deploy
+```
+
 
 ### Command Summary
 
 ```bash
 npm run docker:up
 docker exec -it cont-thumbnail-gen-api sh
+```
+
+# Deploying from local
+
+To deploy the app to AWS Lambda run:
+
+```bash
+npm run sls:deploy
 ```
 
 # Testing

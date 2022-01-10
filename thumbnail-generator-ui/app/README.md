@@ -1,46 +1,83 @@
-# Getting Started with Create React App
+# Thumbnail Generator UI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Thumbnail Generator UI is the application responsible for providing features to login, upload and the generated images. Through this app is possible upload a image, which will be resized in three new image, each one with a different dimension (400x300, 160x120 and 120x120).
 
-## Available Scripts
+# Run
 
-In the project directory, you can run:
+There are two way to running this application:
 
-### `npm start`
+- Locally;
+- Through Docker.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Running Locally
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+- [npm (Node Package Manager)](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- [node >= 14.18.1](https://nodejs.org/)
+- [tsc (TypeScript Compiler)](https://www.typescriptlang.org/download)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To run the application locally follow the steps below:
 
-### `npm run build`
+### 1. Install Dependencies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm i
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 2. Build
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm run build
+```
 
-### `npm run eject`
+### 3. Run
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+npm run serve
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Command Summary
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+npm i
+npm run build
+npm run serve
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Running Through Docker
 
-## Learn More
+### Prerequisites
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [Docker](https://docs.docker.com/engine/install/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+### 1. Build 
+
+```bash
+npm run docker:up
+```
+The application will be available on port 3001.
+
+#### 2.1. Access the container (if needed)
+
+```bash
+docker exec -it cont-thumbnail-gen-ui sh
+
+```
+
+### Command Summary
+
+```bash
+npm run docker:up
+docker exec -it cont-thumbnail-gen-api sh
+```
+
+# Testing
+
+To run the available tests you must run:
+
+```bash
+npm run test
+```
