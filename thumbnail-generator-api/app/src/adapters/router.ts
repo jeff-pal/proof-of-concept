@@ -4,7 +4,7 @@ import resizeImageController from "./resizeToThreeDimensionsController";
 import requireAuthentication from './requireAuthentication';
 import options               from './swaggerUiOptions';
 
-const swaggerDocument   = require('./swagger.json');
+const swaggerDocument   = require('../../data/swagger.json');
 const rootRouter        = Router();
 const resizeImageRouter = Router();
 const docsRouter        = Router();

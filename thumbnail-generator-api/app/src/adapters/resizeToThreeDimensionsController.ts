@@ -56,6 +56,7 @@ class ResizeToThreeDimensionsController {
                 extension: sourceFile.extension,
                 contentType: sourceFile.mimetype,
                 buffer: imageBuffer,
+                dimension: imageDimension,
             }
             resizedImages.push(file);
         }
@@ -67,8 +68,8 @@ class ResizeToThreeDimensionsController {
         const imageLinks = [];
     
         for(const file of files) {
-            const link = await storage.upload(file);
-            imageLinks.push(link);
+            const url = await storage.upload(file);
+            imageLinks.push({ url, dimension: file.dimension });
         }
         return imageLinks;
     }

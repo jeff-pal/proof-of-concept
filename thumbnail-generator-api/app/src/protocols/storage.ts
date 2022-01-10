@@ -1,5 +1,5 @@
-import types from '../types';
+import { File } from 'aws-lambda-resize-img';
 
 export default interface Storage {
-    upload(file: types.File): Promise<string | Error>;
+    upload(file: File): Promise<string | Error>;
 }

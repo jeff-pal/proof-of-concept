@@ -1,0 +1,8 @@
+services:
+  thumbnail-gen-api:
+    build: .
+    command: npm run start
+    image: img-thumbnail-gen-api
+    container_name: cont-thumbnail-gen-api
+    ports:
+      - "3000:3000"
