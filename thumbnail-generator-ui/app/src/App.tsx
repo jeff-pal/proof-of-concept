@@ -53,6 +53,7 @@ function App() {
   const [ resizedThumbnails, setResizedThumbnails ] = React.useState([]);
   const [ previewSrc, setPreviewSrc ]               = React.useState<string>();
   const [ file, setFile ]                           = React.useState<File>();
+  const [ processingImage, setProcessingImage ]     = React.useState<boolean>();
     
   async function generateThumbnails(file: File) {
     if(isAuthenticated) {
@@ -61,17 +62,19 @@ function App() {
       formData.append('image_to_be_resized',file)
       
       try {
+        setProcessingImage(true);
         const response = await api.post('/thumbnail/resize-to-three-dimensions', formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
           }
-         })
-         if(response) {
-           setResizedThumbnails(response.data);
-         }
-        
+        })
+        if (response) {
+          setResizedThumbnails(response.data);
+        }
+        setProcessingImage(false);
       } catch (error: any) {
+        setProcessingImage(false);
         if(error.response.status === 413) {
           alert(error?.response.data)
         }
@@ -94,7 +97,7 @@ function App() {
 
   const PrivateContent = () => (
     <Column>
-      <img alt='user' src={user?.picture || 'user.png'} style={{ width: '5vh', height:'5vh', borderRadius: '50%' }}/>
+      <img alt='user' src={user?.picture || 'assets/images/user.png'} style={{ width: '5vh', height:'5vh', borderRadius: '50%' }}/>
       <LogoutButton />
       <div>
         <DragAndDropFile
@@ -129,7 +132,13 @@ function App() {
       {
         previewSrc &&
         file &&
-        <button className='button-light' onClick={() => generateThumbnails(file)}>Confirm</button>
+        <button
+          className='button-light'
+          onClick={() => generateThumbnails(file)}
+          disabled={processingImage}
+        >
+          {processingImage ? 'Processing...' : 'Confirm'}
+        </button>
       }
       <Thumbnails />
     </Column>
@@ -137,15 +146,24 @@ function App() {
 
   function PublicContent() {
     return (
-      <div>
-        <LoginButton />
-      </div>
+      <Column style={{ width: '80%'}}>
+        <h1>Welcome to the Thumbnail Generator App</h1>
+        <h2>First of all, let's <LoginButton />!</h2>
+        
+        <div style={{ width: '100%' }}>
+          <img 
+            alt='Flow'
+            src='assets/images/steps.svg'
+            style={{ width: '65%' }}
+          />
+        </div>
+      </Column>
     )
   }
 
   return (
     <div className="App">
-      <Column>
+      <Column style={{ width: '100%' }}>
         {
           isLoading ? 'Loading...' : (
             isAuthenticated ?

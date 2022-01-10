@@ -1,5 +1,6 @@
 html {
   background: #fcfcfc;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .App {
@@ -70,7 +71,7 @@ html {
   -webkit-user-select: none;
   touch-action: manipulation;
   height: fit-content;
-  margin: 23px;
+  margin: 4px;
 }
 
 .button-dark:hover,
