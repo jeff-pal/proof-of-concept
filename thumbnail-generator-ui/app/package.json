@@ -23,10 +23,13 @@
     "web-vitals": "^2.1.3"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "docker:build": "docker build -t img-thumbnail-gen-ui .",
+    "docker:up": "docker-compose up -d",
+    "eject": "react-scripts eject",
+    "serve": "serve -s build -l 3001",
+    "start": "react-scripts start",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [

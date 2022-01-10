@@ -88,8 +88,22 @@ function App() {
   const Thumbnails = () => (
     <div>
       {
-        resizedThumbnails.map((imageUrl, index) => (
-          <img key={index} alt="Thumbnail" src={imageUrl}/>
+        resizedThumbnails.map((image: any, index) => (
+          <a
+            key={index}
+            href={image?.url}
+            rel='noreferrer'
+            target='_blank'
+          >
+            <Column>
+              <img
+                alt='Thumbnail'
+                src={image?.url}
+                style={{ margin: '10px' }}
+              />
+              <span>{image?.dimension?.width}x{image?.dimension?.height}</span>
+            </Column>
+          </a>
         ))
       }
     </div>
@@ -97,7 +111,20 @@ function App() {
 
   const PrivateContent = () => (
     <Column>
-      <img alt='user' src={user?.picture || 'assets/images/user.png'} style={{ width: '5vh', height:'5vh', borderRadius: '50%' }}/>
+      <img
+        alt='user'
+        src={user?.picture || 'assets/images/user.png'}
+        style={{ 
+          width: '5vh',
+          height:'5vh',
+          borderRadius: '50%'
+        }}
+        onError={() => {
+          if(user) {
+            user.picture = ''
+          }
+        }}
+      />
       <LogoutButton />
       <div>
         <DragAndDropFile

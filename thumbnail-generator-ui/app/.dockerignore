@@ -1,0 +1,13 @@
+node_modules
+.glitchdotcom.json
+.node-gyp
+build
+dist
+npm-debug.log
+.DS_Store
+yarn.lock
+package-lock.json
+tasks.md
+output.log
+coverage
+.serverless
