@@ -1,0 +1,61 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Sinapsis.co Thumbnail Generator API",
+        "description": "This application allows the user to send a image and get three resized ones.",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Thumbnail",
+            "description": "API for generate resized thumbnails"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/thumbnail/resize-to-three-dimensions": {
+            "post": {
+                "tags": [
+                    "Thumbnail"
+                ],
+                "summary": "Resize a image to three different dimensions.",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "image_to_be_resized",
+                        "type": "file",
+                        "description": "The file to upload."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List with the resized image links.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
