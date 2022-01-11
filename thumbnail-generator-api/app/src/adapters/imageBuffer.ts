@@ -8,7 +8,7 @@ import resizeImage,
 export default class ImageBuffer implements Image {
     async resize(file: File, dimension: Options): Promise<Buffer | Error> {
         const buffer = file?.buffer || file?.data;
-        
+
         if(!(buffer instanceof Buffer)) {
             return new Error('Invalid file format. The file is not a Buffer.');
         }
@@ -18,6 +18,7 @@ export default class ImageBuffer implements Image {
         if(!dimension?.width || !dimension?.height) {
             return new Error('Invalid image dimension.');
         }
+
         const resizedImage = await resizeImage(file, dimension);
         return resizedImage;
     }

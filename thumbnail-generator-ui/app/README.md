@@ -19,7 +19,11 @@ There are two way to running this application:
 
 To run the application locally follow the steps below:
 
-### 1. Install Dependencies
+### 1. Set Env
+
+First of all, set the environmental variables. Create a file **.env** in the path `proof-of-concept/thumbnail-generator-ui/app` following the `.env.template` structure.
+
+### 2. Install Dependencies
 
 ```bash
 npm i
@@ -53,7 +57,11 @@ npm run serve
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
 
-### 1. Build 
+### 1. Set Env (If not accomplished yet)
+
+First of all, set the environmental variables. Create a file **.env** in the path `proof-of-concept/thumbnail-generator-ui/app` following the `.env.template` structure.
+
+### 2. Build 
 
 ```bash
 npm run docker:up

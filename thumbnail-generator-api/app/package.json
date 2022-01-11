@@ -29,7 +29,7 @@
     "clear": "rm -fr .serverless && rm -fr build",
     "sls:deploy": "npm run clear && npm run build && sls deploy",
     "start": "node build/app",
-    "test": "jest"
+    "test": "jest --silent"
   },
   "engines": {
     "node": ">=14.18.1"

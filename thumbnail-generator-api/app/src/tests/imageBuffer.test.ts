@@ -17,9 +17,6 @@ describe('Test Image', () => {
         const systemUnderTest = makeSystemUnderTest();
         const file            = { data: Buffer.from('test image buffer') }
         const resizedImage    = await systemUnderTest.resize(file, options);
-        console.log('-----------------------------------');
-        console.log(resizedImage);
-        
         expect(resizedImage).toBeInstanceOf(Buffer);
     })
 

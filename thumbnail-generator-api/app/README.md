@@ -29,19 +29,23 @@ There are two way to running this application:
 
 To run the application locally follow the steps below:
 
-### 1. Install Dependencies
+### 1. Set Env
+
+First of all, set the environmental variables. Create a file **.env** in the path `proof-of-concept/thumbnail-generator-api/app` following the .env.template structure.
+
+### 2. Install Dependencies
 
 ```bash
 npm i
 ```
 
-### 2. Build
+### 3. Build
 
 ```bash
 npm run build
 ```
 
-### 3. Run
+### 4. Run
 
 ```bash
 npm run start
@@ -62,24 +66,27 @@ npm run start
 - [Docker](https://docs.docker.com/engine/install/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
+### 1. Set Env (If not accomplished yet)
 
-### 1. Build 
+First of all, set the environmental variables. Create a file **.env** in the path `proof-of-concept/thumbnail-generator-api/app` following the `.env.template` structure.
+
+### 2. Build 
 
 ```bash
 npm run docker:up
 ```
 The application will be available on port 3000.
 
-### 2. Deploying (optional)
+### 3. Deploying (optional)
 
-#### 2.1. Access the container
+#### 3.1. Access the container
 
 ```bash
 docker exec -it cont-thumbnail-gen-api sh
 
 ```
 
-#### 2.2. Setup the AWS Credentials
+#### 3.2. Setup the AWS Credentials
 
 ```bash
 serverless config credentials \
@@ -89,7 +96,7 @@ serverless config credentials \
 
 ```
 
-#### 2.3. Run deploy
+#### 3.3. Run deploy
 
 ```bash
 npm run sls:deploy
