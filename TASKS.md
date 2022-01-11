@@ -132,4 +132,4 @@ About the dependencies, in a daily basis I would like to discuss with the team w
 
 # Architecture Proposal
 
-![Architecture Purpose]('./thumbnail-generator-api/app/architecture-proposal.jpg')
+![Architecture Purpose](thumbnail-generator-api/app/architecture-proposal.jpg)
