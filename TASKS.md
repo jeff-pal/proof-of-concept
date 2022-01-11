@@ -120,9 +120,7 @@
 
 ## To Improve
 
-About the dependencies, in a daily basis I would like to discuss with the team which dependencies worth it do adopt and which not. 
-
-## Concerns
+- About the dependencies, in a daily basis I would like to discuss with the team which dependencies worth it do adopt and which not. 
 
 - I would improve the in-memory resized image buffers. 
 
