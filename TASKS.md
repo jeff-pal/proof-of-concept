@@ -129,3 +129,7 @@ About the dependencies, in a daily basis I would like to discuss with the team w
 - I would improve the file/folder structure by discussing with the team about the architecture and patterns adopted.
 
 - Integrate Swagger Docs with Auth0
+
+# Architecture Proposal
+
+![Architecture Purpose]('./thumbnail-generator-api/app/architecture-proposal.jpg')
