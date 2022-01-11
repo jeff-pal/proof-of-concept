@@ -6,13 +6,13 @@
 | -------------------------------------------------------------------- | ------- |
 | Plan what to do                                                      | 00:30hs |
 | Create aws account, get/config credentials and a create bucket       | 01:50hs |
-| Create project - uning my own npm package npx create-node-ts-project | 00:10hs |
+| Create project - using my own npm package npx create-node-ts-project | 00:10hs |
 | Implement http server                                                | 00:30hs |
 | Test upload file with express + express-fileupload                   | 02:00hs |
-| Ietup and implement s3 instance                                      | 00:45hs |
+| Setup and implement s3 instance                                      | 00:45hs |
 | Implement and test s3 upload                                         | 02:00hs |
 | Decide which resize buffer to use                                    | 00:35hs |
-| Imlement resize image                                                | 00:30hs |
+| Implement resize image                                                | 00:30hs |
 |                                                                      |         |
 | TOTAL                                                                | 08:50hs |
 
@@ -72,7 +72,7 @@
 | Implement and test deploy to lambda              | 02:40hs |
 | Fix file-type and mimetype to work on lambda     | 03:00hs |
 |                                                  |         |
-| TOTAL                                            | 11:04hs |
+| TOTAL                                            | 11:40hs |
 
 
 ## Day 7
@@ -120,10 +120,12 @@
 
 ## To Improve
 
-About the dependencies, in a daily basis I would like to dicuss with the team which dependencies worth it do adopt and which not. 
+About the dependencies, in a daily basis I would like to discuss with the team which dependencies worth it do adopt and which not. 
 
 ## Concerns
 
 - I would improve the in-memory resized image buffers. 
 
 - I would improve the file/folder structure by discussing with the team about the architecture and patterns adopted.
+
+- Integrate Swagger Docs with Auth0
