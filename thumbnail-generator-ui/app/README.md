@@ -79,7 +79,7 @@ docker exec -it cont-thumbnail-gen-ui sh
 
 ```bash
 npm run docker:up
-docker exec -it cont-thumbnail-gen-api sh
+docker exec -it cont-thumbnail-gen-ui sh
 ```
 
 # Testing
